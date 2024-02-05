@@ -53,7 +53,8 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $single_Data = Blog::find($id);
+        return view('updatepost',['single_data' => $single_Data]);
     }
 
     /**
@@ -61,7 +62,11 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $blog = Blog::find($id);
+        $blog->title = $request->title;
+        $blog->description = $request->desc;
+        $blog->save();
+        return redirect(route('blog.index'))->with('status','Post has been successfully updated');
     }
 
     /**
@@ -69,6 +74,7 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Blog::destroy($id);
+        return redirect(route('blog.index'))->with('delete_status','Post successfully deleted');
     }
 }

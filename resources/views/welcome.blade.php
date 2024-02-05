@@ -26,6 +26,14 @@
             </button>
         </div>
     @endif
+    @if (session()->has('delete_status'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('delete_status') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="container mt-2">
         <a href="{{ route('blog.create') }}" class="btn btn-primary">create post</a>
     </div>
@@ -42,15 +50,23 @@
                 </tr>
             </thead>
             <tbody>
-
+                @php
+                    $count = 1;
+                @endphp
                 @foreach ($blog_data as $data)
                     <tr>
-                        <th scope="row">{{ $data->id }}</th>
+                        <th scope="row">{{ $count++ }}</th>
                         <td>{{ $data->title }}</td>
                         <td>{{ $data->description }}</td>
                         <td><a href="{{ route('blog.show', $data->id) }}" class="btn btn-secondary btn-sm">View</a></td>
-                        <td><a href="" class="btn btn-success btn-sm">Edit</a></td>
-                        <td><a href="" class="btn btn-sm btn-danger">Delete</a></td>
+                        <td><a href="{{ route('blog.edit', $data->id) }}" class="btn btn-success btn-sm">Edit</a></td>
+                        <td>
+                            <form action="{{ route('blog.destroy', $data->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

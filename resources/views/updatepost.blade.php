@@ -10,29 +10,37 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Create Post</title>
+    <title>Edit Post</title>
 </head>
 
 <body>
     <div class="container-fluid p-2 bg-primary text-white text-center">
-        <h1>Create Post</h1>
+        <h1>Edit Post</h1>
     </div>
-    <div class="container mt-2">
-        <a href="{{ route('blog.index') }}" class="btn btn-primary">All post</a>
+    <div class="container mt-2 d-flex flex-row gap-3">
+        <a href="{{ route('blog.index') }}" class="btn btn-primary btn-sm">All post</a>
+        <form action="{{ route('blog.destroy', $single_data->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+        </form>
     </div>
     <div class="container">
-        <form action="{{ route('blog.store') }}" method="POST">
+        <form action="{{ route('blog.update', $single_data->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="form-group mt-5">
+                <input type="text" hidden name="id"
+                    value="{{ $single_data->id }}>
                 <label for="title" class="form-label">Title:</label>
-                <input type="title" class="form-control" id="title" placeholder="Enter the Title of a post"
+                <input type="title" class="form-control" id="title" value="{{ $single_data->title }}"
                     name="title">
             </div>
             <div class="form-group">
                 <label for="desc">Description:</label>
-                <textarea class="form-control" rows="5" id="desc" name="desc" placeholder="Enter Description of a post"></textarea>
+                <textarea class="form-control" rows="5" id="desc" name="desc">{{ $single_data->description }}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 
