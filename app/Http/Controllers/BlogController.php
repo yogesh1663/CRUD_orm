@@ -43,7 +43,9 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $single_Data = [];
+        $single_Data = Blog::find($id);
+        return view('postdetails',['single_data' =>$single_Data]);
     }
 
     /**

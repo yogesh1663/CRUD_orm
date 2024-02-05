@@ -10,49 +10,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>All Post</title>
+    <title>Create Post</title>
 </head>
 
 <body>
     <div class="container-fluid p-2 bg-primary text-white text-center">
-        <h1>All Posts</h1>
-
+        <h1>Post Details</h1>
     </div>
-    @if (session()->has('status'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            {{ session('status') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
     <div class="container mt-2">
-        <a href="{{ route('blog.create') }}" class="btn btn-primary">create post</a>
+        <a href="{{ route('blog.index') }}" class="btn btn-primary">All post</a>
     </div>
-    <div class="container mt-5">
+    <div class="container mt-3">
         <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">View</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                </tr>
-            </thead>
             <tbody>
-
-                @foreach ($blog_data as $data)
-                    <tr>
-                        <th scope="row">{{ $data->id }}</th>
-                        <td>{{ $data->title }}</td>
-                        <td>{{ $data->description }}</td>
-                        <td><a href="{{ route('blog.show', $data->id) }}" class="btn btn-secondary btn-sm">View</a></td>
-                        <td><a href="" class="btn btn-success btn-sm">Edit</a></td>
-                        <td><a href="" class="btn btn-sm btn-danger">Delete</a></td>
-                    </tr>
-                @endforeach
+                <tr>
+                    <th scope="col">Id :</th>
+                    <td>{{ $single_data->id }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Title:</th>
+                    <td>{{ $single_data->title }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Description:</th>
+                    <td>{{ $single_data->description }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
